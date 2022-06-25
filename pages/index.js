@@ -12,9 +12,9 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>Orange</h1>
         <form action="/send-data-here" method="post">
-          <label>Email</label>
+          <label htmlFor="email">Email</label>
           <input type="text" id="email" name="email" />
-          <label>Password</label>
+          <label htmlFor="pass">Password</label>
           <input type="password" id="pass" name="pass" />
           <input type="checkbox" id="showPass" name="showPass" />
           <label htmlFor="showPass">Mostrar a senha</label>
