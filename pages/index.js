@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Login.module.css";
@@ -5,6 +7,13 @@ import styles from "../styles/Login.module.css";
 import logo from "../public/assets/logo.png";
 
 export default function Login() {
+  const router = useRouter();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    router.push("/home");
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -50,7 +59,11 @@ export default function Login() {
             <a className={styles.link} href="#">
               Problemas para acessar sua conta?
             </a>
-            <button className={styles.login} type="submit">
+            <button
+              className={styles.login}
+              type="submit"
+              onClick={handleClick}
+            >
               Acessar
             </button>
             <div className={styles.separators}>
