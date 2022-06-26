@@ -1,7 +1,10 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import Image from "next/image";
+import styles from "../styles/Login.module.css";
 
-export default function Home() {
+import logo from "../public/assets/logo.png";
+
+export default function Login() {
   return (
     <div className={styles.container}>
       <Head>
@@ -10,16 +13,64 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1 className={styles.title}>Orange</h1>
-        <form action="/send-data-here" method="post">
-          <label htmlFor="email">Email</label>
-          <input type="text" id="email" name="email" />
-          <label htmlFor="pass">Password</label>
-          <input type="password" id="pass" name="pass" />
-          <input type="checkbox" id="showPass" name="showPass" />
-          <label htmlFor="showPass">Mostrar a senha</label>
-          <button type="submit">Acessar</button>
-          <button type="submit">Cadastrar</button>
+        <form className={styles.form} action="/send-data-here" method="post">
+          <Image src={logo} width={300} height={40} alt="Orange" />
+          <section className={styles.container}>
+            <label className={styles.label} htmlFor="email">
+              Email
+            </label>
+            <input
+              className={styles.input + " " + styles.email}
+              type="text"
+              id="email"
+              name="email"
+              placeholder="seunome@email.com"
+            />
+            <label className={styles.label} htmlFor="pass">
+              Password
+            </label>
+            <input
+              className={styles.input + " " + styles.pass}
+              type="password"
+              id="pass"
+              name="pass"
+              placeholder="Password"
+            />
+            <div className={styles.container_checkbox}>
+              <input
+                className={styles.checkbox}
+                type="checkbox"
+                id="showPass"
+                name="showPass"
+              />
+              <label className={styles.checktext} htmlFor="showPass">
+                Mostrar a senha
+              </label>
+            </div>
+            <a className={styles.link} href="#">
+              Problemas para acessar sua conta?
+            </a>
+            <button className={styles.login} type="submit">
+              Acessar
+            </button>
+            <div className={styles.separators}>
+              <div className={styles.separator}></div>
+              <p className={styles.text}>ou</p>
+              <div className={styles.separator}></div>
+            </div>
+            <button className={styles.register} type="submit">
+              Cadastrar
+            </button>
+            <footer className={styles.footer}>
+              <a className={styles.linkfooter} href="#">
+                Termos de uso
+              </a>
+              <span className={styles.dotseparator}>•</span>
+              <a className={styles.linkfooter} href="#">
+                Política de privacidade
+              </a>
+            </footer>
+          </section>
         </form>
       </main>
     </div>
