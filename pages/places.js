@@ -45,7 +45,7 @@ export default function Places({ collectionResult }) {
             <ul className={styles.list}>
               <li>
                 <a
-                  className={styles.list__item + " " + styles.active}
+                  className={styles.list__item}
                   onClick={(e) => handleClick(e, "home")}
                 >
                   Foods
@@ -61,7 +61,7 @@ export default function Places({ collectionResult }) {
               </li>
               <li>
                 <a
-                  className={styles.list__item}
+                  className={styles.list__item + " " + styles.active}
                   onClick={(e) => handleClick(e, "places")}
                 >
                   Places

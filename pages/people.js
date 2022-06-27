@@ -45,7 +45,7 @@ export default function People({ collectionResult }) {
             <ul className={styles.list}>
               <li>
                 <a
-                  className={styles.list__item + " " + styles.active}
+                  className={styles.list__item}
                   onClick={(e) => handleClick(e, "home")}
                 >
                   Foods
@@ -53,7 +53,7 @@ export default function People({ collectionResult }) {
               </li>
               <li>
                 <a
-                  className={styles.list__item}
+                  className={styles.list__item + " " + styles.active}
                   onClick={(e) => handleClick(e, "people")}
                 >
                   People
