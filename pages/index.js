@@ -21,13 +21,12 @@ export default function Login() {
           password: pass,
         })
         .then((response) => {
-          console.log("Well done!");
-          console.log("User profile", response.data.user);
-          console.log("User token", response.data.jwt);
+          sessionStorage.setItem("isLogged", "true");
+          sessionStorage.setItem("token", response.data.jwt);
           router.push("/home");
         })
         .catch((error) => {
-          console.log("An error occurred:", error.response);
+          router.push("/");
         });
     } else {
       alert("Insira suas credenciais corretamente!");

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useRouter } from "next/router";
 
 import Head from "next/head";
@@ -9,13 +10,39 @@ import logo from "../public/assets/logo.png";
 let collection = "foods";
 
 export async function getStaticProps() {
-  const data = await fetch(`http://localhost:1337/${collection}`);
-
-  const collectionResult = await data.json();
-
-  return {
-    props: { collectionResult },
-  };
+  // let isLogged = sessionStorage.getItem("isLogged");
+  let isLogged = true;
+  if (isLogged === true) {
+    // let token = sessionStorage.getItem("token");
+    let token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU2NDQwNzY2LCJleHAiOjE2NTkwMzI3NjZ9.dI7rqYLSNQ3AcixUuZzwcXdcfNu_iWoHoRMgHPzak00";
+    const data = await axios
+      .get(`http://localhost:1337/${collection}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return {
+          redirect: {
+            destination: "/",
+          },
+        };
+      });
+    const collectionResult = await data;
+    return {
+      props: { collectionResult },
+    };
+  } else {
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
+  }
 }
 
 export default function Home({ collectionResult }) {
@@ -76,18 +103,22 @@ export default function Home({ collectionResult }) {
           <h1 className={styles.title}>List of {collection}</h1>
           <div className={styles.separator}></div>
           <article className={styles.galery}>
-            {collectionResult?.map((item) => (
-              <section className={styles.galery__item} key={item.id}>
-                <Image
-                  className={styles.galery__img}
-                  src={`http://localhost:1337${item.link.url}`}
-                  width={500}
-                  height={500}
-                  alt={item.link.alternativeText}
-                />
-                <h2 className={styles.galery__text}>{item.name}</h2>
-              </section>
-            ))}
+            {collectionResult.map((item) => {
+              return item.name !== null ? (
+                <section className={styles.galery__item} key={item.id}>
+                  <Image
+                    className={styles.galery__img}
+                    src={`http://localhost:1337${item.link.url}`}
+                    width={500}
+                    height={500}
+                    alt={item.link.alternativeText}
+                  />
+                  <h2 className={styles.galery__text}>{item.name}</h2>
+                </section>
+              ) : (
+                <></>
+              );
+            })}
           </article>
         </div>
       </main>
