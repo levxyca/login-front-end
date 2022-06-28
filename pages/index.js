@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useRouter } from "next/router";
 
 import Head from "next/head";
@@ -9,9 +10,33 @@ import logo from "../public/assets/logo.png";
 export default function Login() {
   const router = useRouter();
 
+  const login = async () => {
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("pass").value;
+
+    if (email && pass) {
+      await axios
+        .post("http://localhost:1337/auth/local", {
+          identifier: email,
+          password: pass,
+        })
+        .then((response) => {
+          console.log("Well done!");
+          console.log("User profile", response.data.user);
+          console.log("User token", response.data.jwt);
+          router.push("/home");
+        })
+        .catch((error) => {
+          console.log("An error occurred:", error.response);
+        });
+    } else {
+      alert("Insira suas credenciais corretamente!");
+    }
+  };
+
   const handleClick = (e) => {
     e.preventDefault();
-    router.push("/home");
+    login();
   };
 
   return (
